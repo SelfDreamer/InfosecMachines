@@ -26,7 +26,7 @@ This library provides a simple and intuitive API to search, filter, and retrieve
 git clone https://github.com/SelfDreamer/Infosecmachines 
 cd Infosecmachines 
 python3 -m venv .venv 
-source .venv/bin/activate
+source .venv/bin/activate # This is on UNIX, on PowerShell Windows will be \.venv\scripts\Activate.ps1
 pip3 install -r requirements.txt 
 
 # Using pip 
@@ -77,23 +77,56 @@ if __name__ == '__main__':
 
 # 📚 API Overview
 
-- `Client.search_machine(name: str) -> dict`
+---
 
-- `Client.search_platform(platform: str) -> list`
+- `Client.search_machine(name: str) -> tuple[dict, ...]`
 
-- `Client.search_difficulty(level: str) -> list`
+- `Client.search_platform(platform: str) -> tuple[str, ...]`
 
-- `Client.search_ip(ip: str) -> dict`
+- `Client.search_difficulty(difficulty: str) -> tuple[str, ...]`
 
-- `Client.search_writeup(machine: str) -> list`
+- `Client.search_ip(adress: str) -> tuple[dict[str, ...], ...]`
 
-- `Client.get_all_machines() -> list`
+- `Client.search_writeup(machine: str) -> tuple[Writeup, ...]`
 
-- `Client.get_random_machine() -> dict`
+- `Client.get_all_machines() -> tuple[str, ...]`
+
+- `Client.get_random_machine() -> str`
+
+- `Client.search_techniques(techniques: tuple[str, ...], return_type: Literal['Generator', 'Normal']) -> Generator[str, None, None] | tuple[str, ...]`
+
+- `Client.search_certificates(certificates: tuple[str, ...], return_type: Literal['Generator', 'Normal']) -> Generator[str, None, None] | tuple[str, ...]`
+
+- `Client.advanced_search(objects: tuple[str, ...], return_type: Literal['Generator', 'Normal']) -> Generator[str, None, None] | tuple[str, ...]`
+
+- `Client.machine_counts -> dict`
+
+> [!NOTE]
+> `machine_counts` it's a property
+
+---
+
 # Exceptions
 
 - `InitialRequestException` – Raised when the initial request is missing or fails.
 - `InitialRequestAsyncException` - Raised when in the async client the request is missing.
+
+# Example
+
+```python
+import infosecmachines as info 
+
+client = info.Client()
+
+# Raise InitialRequestException because the initial request is missing
+try:
+    results = client.search_machine("Tentacle") 
+except InitialRequestException as err:
+    print(f"Error ocurried: {err}")
+    exit(1)
+
+print(results[0]['name'])
+```
 
 ---
 

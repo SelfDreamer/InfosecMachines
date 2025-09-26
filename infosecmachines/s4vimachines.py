@@ -642,7 +642,7 @@ class Client():
         return machine[0]
     
     @property
-    def get_machine_counts(self) -> totalMachines:
+    def machine_counts(self) -> totalMachines:
         """
         Retrieve the number of machines resolved per platform.
 
@@ -658,10 +658,7 @@ class Client():
         Examples:
             >>> from infosecmachines import Client
             >>> with Client() as client:
-            ...     counts = client.get_machine_counts()
-            ...     print(counts["htb"])  # Number of HackTheBox machines
-            ...     total = sum(counts.values())
-            ...     print(total)  # Total across all platforms
+            ...     print(machine_counts["htb"])  # Number of HackTheBox machines
         """
         self.initial_check()
 
@@ -1300,8 +1297,7 @@ class ClientAsync():
         return machine[0]
     
     @property
-    @typechecked
-    async def get_machine_counts(self) -> totalMachines:
+    async def machine_counts(self) -> totalMachines:
         '''
         Dictionary with the number of machines resolved per platform.
         Requires that `initial_request()` has been called before.
