@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-
-#!/usr/bin/env python
-
 class InitialRequestException(Exception):
     """
     Exception raised when an initial request has not been performed.
